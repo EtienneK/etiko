@@ -1,16 +1,15 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+/*
+  See: https://www.gethalfmoon.com/docs/customize
+*/
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+:root {
+  /* Change primary color from blue to yellow */
+  --primary-color: var(--yellow-color);                                     /* Before: var(--blue-color) */
+  --primary-color-light: var(--yellow-color-light);                         /* Before: var(--blue-color-light) */
+  --primary-color-very-light: var(--yellow-color-very-light);               /* Before: var(--blue-color-very-light) */
+  --primary-color-dark: var(--yellow-color-dark);                           /* Before: var(--blue-color-dark) */
+  --primary-color-very-dark: var(--yellow-color-very-dark);                 /* Before: var(--blue-color-very-dark) */
+  --primary-box-shadow-color: var(--yellow-box-shadow-color);               /* Before: var(--blue-box-shadow-color) */
+  --primary-box-shadow-color-darker: var(--yellow-box-shadow-color-darker); /* Before: var(--blue-box-shadow-color-darker) */
+  --text-color-on-primary-color-bg: var(--text-color-on-yellow-color-bg);   /* Before: var(--text-color-on-blue-color-bg) */
 }
