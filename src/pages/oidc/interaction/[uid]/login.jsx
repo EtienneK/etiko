@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { FaEnvelope, FaLock } from 'react-icons/fa'
+import fetch from 'cross-fetch'
 
 export default function Login () {
   const { handleSubmit } = useForm()

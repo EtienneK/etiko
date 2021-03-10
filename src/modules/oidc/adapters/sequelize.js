@@ -12,7 +12,7 @@ import Sequelize, { Sequelize as Sq, Transaction } from 'sequelize' // eslint-di
 
 const sequelize = new Sq('databaseName', 'username', 'password', {
   dialect: 'sqlite',
-  storage: 'db/oidc.sqlite',
+  storage: '.db/oidc.sqlite',
   // Read https://activesphere.com/blog/2018/12/24/understanding-sqlite-busy to understand below
   retry: {
     max: 5

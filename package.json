@@ -5,14 +5,13 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "eslint --ext .js --ext .jsx ./",
-    "lint:fix": "eslint --fix --ext .js --ext .jsx ./",
     "start": "next start",
-    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' 'tests/**/*.js' 'tests/**/*.jsx'",
-    "standard:fix": "standard --fix",
+    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' #######'tests/**/*.js' 'tests/**/*.jsx'",
+    "standard:fix": "standard --fix -v 'src/**/*.js' 'src/**/*.jsx' #######'tests/**/*.js' 'tests/**/*.jsx'",
     "test": "jest"
   },
   "dependencies": {
+    "cross-fetch": "^3.0.6",
     "halfmoon": "^1.1.1",
     "nanoid": "^3.1.20",
     "next": "10.0.8",
@@ -25,8 +24,6 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.20",
-    "jest": "^26.6.3",
     "standard": "^16.0.3"
   }
 }

@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { FaCheck, FaLock, FaTimes } from 'react-icons/fa'
+import fetch from 'cross-fetch'
 
 export default function Consent () {
   const { handleSubmit } = useForm()
