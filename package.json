@@ -25,5 +25,12 @@
   },
   "devDependencies": {
     "standard": "^16.0.3"
+  },
+  "standard": {
+    "envs": [
+      "jest",
+      "browser",
+      "node"
+    ]
   }
 }
