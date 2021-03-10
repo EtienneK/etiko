@@ -5,20 +5,19 @@
  * models where these fields are set (grantId-able models). userCode should be additionaly indexed
  * for DeviceCode model. uid should be additionaly indexed for Session model. For sequelize
  * migrations @see https://github.com/Rogger794/node-oidc-provider/tree/examples/example/migrations/sequelize
-*/
+ */
 
-// npm i sequelize@^5.21.2
-import Sequelize from 'sequelize';
-import { Sequelize as Sq, Transaction } from 'sequelize'; // eslint-disable-line import/no-unresolved
+// Npm i sequelize@^5.21.2
+import Sequelize, { Sequelize as Sq, Transaction } from 'sequelize'; // eslint-disable-line import/no-unresolved
 
 const sequelize = new Sq('databaseName', 'username', 'password', {
   dialect: 'sqlite',
   storage: 'db/oidc.sqlite',
-  // read https://activesphere.com/blog/2018/12/24/understanding-sqlite-busy to understand below
+  // Read https://activesphere.com/blog/2018/12/24/understanding-sqlite-busy to understand below
   retry: {
-    max: 5
+    max: 5,
   },
-  transactionType: Transaction.TYPES.IMMEDIATE
+  transactionType: Transaction.TYPES.IMMEDIATE,
 });
 
 const grantable = new Set([
@@ -44,10 +43,19 @@ const models = [
   'PushedAuthorizationRequest',
 ].reduce((map, name) => {
   map.set(name, sequelize.define(name, {
-    id: { type: Sequelize.STRING, primaryKey: true },
-    ...(grantable.has(name) ? { grantId: { type: Sequelize.STRING } } : undefined),
-    ...(name === 'DeviceCode' ? { userCode: { type: Sequelize.STRING } } : undefined),
-    ...(name === 'Session' ? { uid: { type: Sequelize.STRING } } : undefined),
+    id: {
+      type: Sequelize.STRING,
+      primaryKey: true,
+    },
+    ...grantable.has(name)
+      ? { grantId: { type: Sequelize.STRING } }
+      : undefined,
+    ...name === 'DeviceCode'
+      ? { userCode: { type: Sequelize.STRING } }
+      : undefined,
+    ...name === 'Session'
+      ? { uid: { type: Sequelize.STRING } }
+      : undefined,
     data: { type: Sequelize.JSON },
     expiresAt: { type: Sequelize.DATE },
     consumedAt: { type: Sequelize.DATE },
@@ -57,10 +65,7 @@ const models = [
 }, new Map());
 
 class SequelizeAdapter {
-  private model;
-  private name: string;
-
-  constructor(name: string) {
+  constructor(name) {
     this.model = models.get(name);
     this.name = name;
   }
@@ -69,37 +74,63 @@ class SequelizeAdapter {
     await this.model.upsert({
       id,
       data,
-      ...(data.grantId ? { grantId: data.grantId } : undefined),
-      ...(data.userCode ? { userCode: data.userCode } : undefined),
-      ...(data.uid ? { uid: data.uid } : undefined),
-      ...(expiresIn ? { expiresAt: new Date(Date.now() + (expiresIn * 1000)) } : undefined),
+      ...data.grantId
+        ? { grantId: data.grantId }
+        : undefined,
+      ...data.userCode
+        ? { userCode: data.userCode }
+        : undefined,
+      ...data.uid
+        ? { uid: data.uid }
+        : undefined,
+      ...expiresIn
+        ? { expiresAt: new Date(Date.now() + expiresIn * 1000) }
+        : undefined,
     });
   }
 
   async find(id) {
     const found = await this.model.findByPk(id);
-    if (!found) return undefined;
+
+    if (!found) {
+      return undefined;
+    }
+
     return {
       ...found.data,
-      ...(found.consumedAt ? { consumed: true } : undefined),
+      ...found.consumedAt
+        ? { consumed: true }
+        : undefined,
     };
   }
 
   async findByUserCode(userCode) {
     const found = await this.model.findOne({ where: { userCode } });
-    if (!found) return undefined;
+
+    if (!found) {
+      return undefined;
+    }
+
     return {
       ...found.data,
-      ...(found.consumedAt ? { consumed: true } : undefined),
+      ...found.consumedAt
+        ? { consumed: true }
+        : undefined,
     };
   }
 
   async findByUid(uid) {
     const found = await this.model.findOne({ where: { uid } });
-    if (!found) return undefined;
+
+    if (!found) {
+      return undefined;
+    }
+
     return {
       ...found.data,
-      ...(found.consumedAt ? { consumed: true } : undefined),
+      ...found.consumedAt
+        ? { consumed: true }
+        : undefined,
     };
   }
 

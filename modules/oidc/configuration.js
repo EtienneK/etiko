@@ -8,9 +8,15 @@ const configuration = {
     {
       client_id: 'oidcCLIENT',
       client_secret: '...',
-      grant_types: ['refresh_token', 'authorization_code'],
-      redirect_uris: ['http://sso-client.dev/providers/7/open_id', 'http://sso-client.dev/providers/8/open_id'],
-    }
+      grant_types: [
+        'refresh_token',
+        'authorization_code',
+      ],
+      redirect_uris: [
+        'http://sso-client.dev/providers/7/open_id',
+        'http://sso-client.dev/providers/8/open_id',
+      ],
+    },
   ],
   interactions: {
     url(ctx, interaction) { // eslint-disable-line no-unused-vars
@@ -18,20 +24,44 @@ const configuration = {
     },
   },
   cookies: {
-    keys: ['some secret key', 'and also the old rotated away some time ago', 'and one more'],
+    keys: [
+      'some secret key',
+      'and also the old rotated away some time ago',
+      'and one more',
+    ],
   },
   claims: {
     address: ['address'],
-    email: ['email', 'email_verified'],
-    phone: ['phone_number', 'phone_number_verified'],
-    profile: ['birthdate', 'family_name', 'gender', 'given_name', 'locale', 'middle_name', 'name',
-      'nickname', 'picture', 'preferred_username', 'profile', 'updated_at', 'website', 'zoneinfo'],
+    email: [
+      'email',
+      'email_verified',
+    ],
+    phone: [
+      'phone_number',
+      'phone_number_verified',
+    ],
+    profile: [
+      'birthdate',
+      'family_name',
+      'gender',
+      'given_name',
+      'locale',
+      'middle_name',
+      'name',
+      'nickname',
+      'picture',
+      'preferred_username',
+      'profile',
+      'updated_at',
+      'website',
+      'zoneinfo',
+    ],
   },
   features: {
-    devInteractions: { enabled: false }, // defaults to true
+    devInteractions: { enabled: false }, // Defaults to true
 
-    deviceFlow: { enabled: true }, // defaults to false
-    revocation: { enabled: true }, // defaults to false
+    deviceFlow: { enabled: true }, // Defaults to false
+    revocation: { enabled: true }, // Defaults to false
   },
   jwks: {
     keys: [
@@ -46,7 +76,8 @@ const configuration = {
         q: '3I1qeEDslZFB8iNfpKAdWtz_Wzm6-jayT_V6aIvhvMj5mnU-Xpj75zLPQSGa9wunMlOoZW9w1wDO1FVuDhwzeOJaTm-Ds0MezeC4U6nVGyyDHb4CUA3ml2tzt4yLrqGYMT7XbADSvuWYADHw79OFjEi4T3s3tJymhaBvy1ulv8M',
         qi: 'wSbXte9PcPtr788e713KHQ4waE26CzoXx-JNOgN0iqJMN6C4_XJEX-cSvCZDf4rh7xpXN6SGLVd5ibIyDJi7bbi5EQ5AXjazPbLBjRthcGXsIuZ3AtQyR0CEWNSdM7EyM5TRdyZQ9kftfz9nI03guW3iKKASETqX2vh0Z8XRjyU',
         use: 'sig',
-      }, {
+      },
+      {
         crv: 'P-256',
         d: 'K9xfPv773dZR22TVUB80xouzdF7qCg5cWjPjkHyv7Ws',
         kty: 'EC',
