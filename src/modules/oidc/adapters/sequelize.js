@@ -8,24 +8,24 @@
  */
 
 // Npm i sequelize@^5.21.2
-import Sequelize, { Sequelize as Sq, Transaction } from 'sequelize'; // eslint-disable-line import/no-unresolved
+import Sequelize, { Sequelize as Sq, Transaction } from 'sequelize' // eslint-disable-line import/no-unresolved
 
 const sequelize = new Sq('databaseName', 'username', 'password', {
   dialect: 'sqlite',
   storage: 'db/oidc.sqlite',
   // Read https://activesphere.com/blog/2018/12/24/understanding-sqlite-busy to understand below
   retry: {
-    max: 5,
+    max: 5
   },
-  transactionType: Transaction.TYPES.IMMEDIATE,
-});
+  transactionType: Transaction.TYPES.IMMEDIATE
+})
 
 const grantable = new Set([
   'AccessToken',
   'AuthorizationCode',
   'RefreshToken',
-  'DeviceCode',
-]);
+  'DeviceCode'
+])
 
 const models = [
   'Session',
@@ -40,12 +40,12 @@ const models = [
   'RegistrationAccessToken',
   'Interaction',
   'ReplayDetection',
-  'PushedAuthorizationRequest',
+  'PushedAuthorizationRequest'
 ].reduce((map, name) => {
   map.set(name, sequelize.define(name, {
     id: {
       type: Sequelize.STRING,
-      primaryKey: true,
+      primaryKey: true
     },
     ...grantable.has(name)
       ? { grantId: { type: Sequelize.STRING } }
@@ -58,19 +58,19 @@ const models = [
       : undefined,
     data: { type: Sequelize.JSON },
     expiresAt: { type: Sequelize.DATE },
-    consumedAt: { type: Sequelize.DATE },
-  }));
+    consumedAt: { type: Sequelize.DATE }
+  }))
 
-  return map;
-}, new Map());
+  return map
+}, new Map())
 
 class SequelizeAdapter {
-  constructor(name) {
-    this.model = models.get(name);
-    this.name = name;
+  constructor (name) {
+    this.model = models.get(name)
+    this.name = name
   }
 
-  async upsert(id, data, expiresIn) {
+  async upsert (id, data, expiresIn) {
     await this.model.upsert({
       id,
       data,
@@ -85,72 +85,72 @@ class SequelizeAdapter {
         : undefined,
       ...expiresIn
         ? { expiresAt: new Date(Date.now() + expiresIn * 1000) }
-        : undefined,
-    });
+        : undefined
+    })
   }
 
-  async find(id) {
-    const found = await this.model.findByPk(id);
+  async find (id) {
+    const found = await this.model.findByPk(id)
 
     if (!found) {
-      return undefined;
+      return undefined
     }
 
     return {
       ...found.data,
       ...found.consumedAt
         ? { consumed: true }
-        : undefined,
-    };
+        : undefined
+    }
   }
 
-  async findByUserCode(userCode) {
-    const found = await this.model.findOne({ where: { userCode } });
+  async findByUserCode (userCode) {
+    const found = await this.model.findOne({ where: { userCode } })
 
     if (!found) {
-      return undefined;
+      return undefined
     }
 
     return {
       ...found.data,
       ...found.consumedAt
         ? { consumed: true }
-        : undefined,
-    };
+        : undefined
+    }
   }
 
-  async findByUid(uid) {
-    const found = await this.model.findOne({ where: { uid } });
+  async findByUid (uid) {
+    const found = await this.model.findOne({ where: { uid } })
 
     if (!found) {
-      return undefined;
+      return undefined
     }
 
     return {
       ...found.data,
       ...found.consumedAt
         ? { consumed: true }
-        : undefined,
-    };
+        : undefined
+    }
   }
 
-  async destroy(id) {
-    await this.model.destroy({ where: { id } });
+  async destroy (id) {
+    await this.model.destroy({ where: { id } })
   }
 
-  async consume(id) {
-    await this.model.update({ consumedAt: new Date() }, { where: { id } });
+  async consume (id) {
+    await this.model.update({ consumedAt: new Date() }, { where: { id } })
   }
 
-  async revokeByGrantId(grantId) {
-    await this.model.destroy({ where: { grantId } });
+  async revokeByGrantId (grantId) {
+    await this.model.destroy({ where: { grantId } })
   }
 
-  static async connect() {
-    await sequelize.sync();
+  static async connect () {
+    await sequelize.sync()
     // TODO: remove below once support for other databases is in
-    await sequelize.query('PRAGMA journal_mode=WAL;');
+    await sequelize.query('PRAGMA journal_mode=WAL;')
   }
 }
 
-export default SequelizeAdapter;
+export default SequelizeAdapter

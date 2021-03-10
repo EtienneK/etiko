@@ -1,5 +1,5 @@
-import Account from './account';
-import SequelizeAdapter from './adapters/sequelize';
+import Account from './account'
+import SequelizeAdapter from './adapters/sequelize'
 
 const configuration = {
   adapter: SequelizeAdapter,
@@ -10,35 +10,35 @@ const configuration = {
       client_secret: '...',
       grant_types: [
         'refresh_token',
-        'authorization_code',
+        'authorization_code'
       ],
       redirect_uris: [
         'http://sso-client.dev/providers/7/open_id',
-        'http://sso-client.dev/providers/8/open_id',
-      ],
-    },
+        'http://sso-client.dev/providers/8/open_id'
+      ]
+    }
   ],
   interactions: {
-    url(ctx, interaction) { // eslint-disable-line no-unused-vars
-      return `/api/oidc/interaction/${interaction.uid}`;
-    },
+    url (ctx, interaction) { // eslint-disable-line no-unused-vars
+      return `/api/oidc/interaction/${interaction.uid}`
+    }
   },
   cookies: {
     keys: [
       'some secret key',
       'and also the old rotated away some time ago',
-      'and one more',
-    ],
+      'and one more'
+    ]
   },
   claims: {
     address: ['address'],
     email: [
       'email',
-      'email_verified',
+      'email_verified'
     ],
     phone: [
       'phone_number',
-      'phone_number_verified',
+      'phone_number_verified'
     ],
     profile: [
       'birthdate',
@@ -54,14 +54,14 @@ const configuration = {
       'profile',
       'updated_at',
       'website',
-      'zoneinfo',
-    ],
+      'zoneinfo'
+    ]
   },
   features: {
     devInteractions: { enabled: false }, // Defaults to true
 
     deviceFlow: { enabled: true }, // Defaults to false
-    revocation: { enabled: true }, // Defaults to false
+    revocation: { enabled: true } // Defaults to false
   },
   jwks: {
     keys: [
@@ -75,7 +75,7 @@ const configuration = {
         p: '5wC6nY6Ev5FqcLPCqn9fC6R9KUuBej6NaAVOKW7GXiOJAq2WrileGKfMc9kIny20zW3uWkRLm-O-3Yzze1zFpxmqvsvCxZ5ERVZ6leiNXSu3tez71ZZwp0O9gys4knjrI-9w46l_vFuRtjL6XEeFfHEZFaNJpz-lcnb3w0okrbM',
         q: '3I1qeEDslZFB8iNfpKAdWtz_Wzm6-jayT_V6aIvhvMj5mnU-Xpj75zLPQSGa9wunMlOoZW9w1wDO1FVuDhwzeOJaTm-Ds0MezeC4U6nVGyyDHb4CUA3ml2tzt4yLrqGYMT7XbADSvuWYADHw79OFjEi4T3s3tJymhaBvy1ulv8M',
         qi: 'wSbXte9PcPtr788e713KHQ4waE26CzoXx-JNOgN0iqJMN6C4_XJEX-cSvCZDf4rh7xpXN6SGLVd5ibIyDJi7bbi5EQ5AXjazPbLBjRthcGXsIuZ3AtQyR0CEWNSdM7EyM5TRdyZQ9kftfz9nI03guW3iKKASETqX2vh0Z8XRjyU',
-        use: 'sig',
+        use: 'sig'
       },
       {
         crv: 'P-256',
@@ -83,10 +83,10 @@ const configuration = {
         kty: 'EC',
         use: 'sig',
         x: 'FWZ9rSkLt6Dx9E3pxLybhdM6xgR5obGsj5_pqmnz5J4',
-        y: '_n8G69C-A2Xl4xUW2lF0i8ZGZnk_KPYrhv4GbTGu5G4',
-      },
-    ],
-  },
-};
+        y: '_n8G69C-A2Xl4xUW2lF0i8ZGZnk_KPYrhv4GbTGu5G4'
+      }
+    ]
+  }
+}
 
-export default configuration;
+export default configuration

@@ -1,13 +1,13 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid'
 
-const store = new Map();
-const logins = new Map();
+const store = new Map()
+const logins = new Map()
 
 class Account {
-  constructor(id, profile) {
-    this.accountId = id || nanoid();
-    this.profile = profile;
-    store.set(this.accountId, this);
+  constructor (id, profile) {
+    this.accountId = id || nanoid()
+    this.profile = profile
+    store.set(this.accountId, this)
   }
 
   /**
@@ -18,7 +18,7 @@ class Account {
    *   loading some claims from external resources etc. based on this detail
    *   or not return them in id tokens but only userinfo and so on.
    */
-  async claims(use, scope) { // eslint-disable-line no-unused-vars
+  async claims (use, scope) { // eslint-disable-line no-unused-vars
     if (this.profile) {
       return {
         sub: this.accountId, // It is essential to always return a sub claim
@@ -27,8 +27,8 @@ class Account {
         family_name: this.profile.family_name,
         given_name: this.profile.given_name,
         locale: this.profile.locale,
-        name: this.profile.name,
-      };
+        name: this.profile.name
+      }
     }
 
     return {
@@ -40,7 +40,7 @@ class Account {
         locality: '000',
         postal_code: '000',
         region: '000',
-        street_address: '000',
+        street_address: '000'
       },
       birthdate: '1987-10-16',
       email: 'johndoe@example.com',
@@ -59,27 +59,27 @@ class Account {
       profile: 'https://johnswebsite.com',
       updated_at: 1454704946,
       website: 'http://example.com',
-      zoneinfo: 'Europe/Berlin',
-    };
+      zoneinfo: 'Europe/Berlin'
+    }
   }
 
-  static async findByEmail(email) {
+  static async findByEmail (email) {
     if (!logins.get(email)) {
-      logins.set(email, new Account(email));
+      logins.set(email, new Account(email))
     }
 
-    return logins.get(email);
+    return logins.get(email)
   }
 
-  static async findAccount(ctx, id) { // eslint-disable-line no-unused-vars
+  static async findAccount (ctx, id) { // eslint-disable-line no-unused-vars
     /*
      * Token is a reference to the token used for which a given account is being loaded,
      *   it is undefined in scenarios where account claims are returned from authorization endpoint
      * ctx is the koa request context
      */
-    if (!store.get(id)) { new Account(id); } // eslint-disable-line no-new
-    return store.get(id);
+    if (!store.get(id)) { new Account(id) } // eslint-disable-line no-new
+    return store.get(id)
   }
 }
 
-export default Account;
+export default Account
