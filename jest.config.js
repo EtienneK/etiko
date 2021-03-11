@@ -1,11 +1,12 @@
-const { defaults } = require('jest-config')
-
 module.exports = {
-  ...defaults,
-  moduleFileExtensions: ['js'],
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-  collectCoverage: true,
-  coveragePathIgnorePatterns: ['/node_modules/', 'enzyme.js', '/.next/'],
-  coverageReporters: ['json', 'lcov', 'text', 'text-summary'],
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}']
+  testPathIgnorePatterns: ['<rootDir>/.next/", "<rootDir>/node_modules/'],
+  globalSetup: '<rootDir>/jest.env.js',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  moduleNameMapper: {
+    '^jose/(.*)$': '<rootDir>/node_modules/jose/dist/node/cjs/$1'
+  }
 }

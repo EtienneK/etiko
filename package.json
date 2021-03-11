@@ -6,8 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' #######'__tests__/**/*.js' '__tests__/**/*.jsx'",
-    "standard:fix": "standard --fix -v 'src/**/*.js' 'src/**/*.jsx' #######'__tests__/**/*.js' '__tests__/**/*.jsx'",
+    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' '__tests__/**/*.js' '__tests__/**/*.jsx'",
+    "standard:fix": "standard --fix -v 'src/**/*.js' 'src/**/*.jsx' '__tests__/**/*.js' '__tests__/**/*.jsx'",
     "test": "jest"
   },
   "dependencies": {
@@ -24,8 +24,15 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.30.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
     "@types/jest": "^26.0.20",
+    "babel-jest": "^26.6.3",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
+    "jest-dom": "^4.0.0",
+    "next-test-api-route-handler": "^1.2.20",
     "standard": "^16.0.3"
   },
   "standard": {

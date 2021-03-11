@@ -10,9 +10,8 @@
 // Npm i sequelize@^5.21.2
 import Sequelize, { Sequelize as Sq, Transaction } from 'sequelize' // eslint-disable-line import/no-unresolved
 
-const sequelize = new Sq('databaseName', 'username', 'password', {
-  dialect: 'sqlite',
-  storage: '.db/oidc.sqlite',
+const sequelize = new Sq(process.env.DB_URI, {
+  logging: process.env.ENABLE_SQL_LOGS === 'true' ? console.log : false,
   // Read https://activesphere.com/blog/2018/12/24/understanding-sqlite-busy to understand below
   retry: {
     max: 5
