@@ -6,11 +6,13 @@
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' '__tests__/**/*.js' '__tests__/**/*.jsx'",
-    "standard:fix": "standard --fix -v 'src/**/*.js' 'src/**/*.jsx' '__tests__/**/*.js' '__tests__/**/*.jsx'",
-    "test": "jest"
+    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' 'tests/**/*.js' 'tests/**/*.jsx'",
+    "standard:fix": "standard --fix -v 'src/**/*.js' 'src/**/*.jsx' 'tests/**/*.js' 'tests/**/*.jsx'",
+    "test": "npm run standard && jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
+    "config": "^3.3.6",
     "cross-fetch": "^3.0.6",
     "halfmoon": "^1.1.1",
     "nanoid": "^3.1.20",

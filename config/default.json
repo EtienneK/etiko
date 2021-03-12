@@ -1,0 +1,11 @@
+{
+  "server": {
+    "protocol": "http",
+    "host": "localhost:3000",
+    "proxy": false
+  },
+  "db": {
+    "uri": "sqlite:./.db/db.sqlite",
+    "enableSqlLogging": false
+  }
+}

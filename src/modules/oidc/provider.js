@@ -1,10 +1,12 @@
+import config from 'config'
 import { Provider } from 'oidc-provider'
 
 import SequelizeAdapter from './adapters/sequelize'
 import configuration from './configuration'
 
-const provider = new Provider(`${process.env.PROTOCOL}://${process.env.HOST}/api/oidc`, configuration)
-provider.proxy = process.env.PROXY === 'true'
+const { protocol, host, proxy } = config.get('server')
+const provider = new Provider(`${protocol}://${host}/api/oidc`, configuration)
+provider.proxy = proxy === true
 
 let initialized = false
 export default async function oidc () {
