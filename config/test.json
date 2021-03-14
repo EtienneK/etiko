@@ -1,0 +1,11 @@
+{
+  "server": {
+    "protocol": "https",
+    "host": "iam.example.com",
+    "proxy": true
+  },
+  "db": {
+    "uri": "sqlite::memory:",
+    "enableSqlLogging": false
+  }
+}
