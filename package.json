@@ -7,9 +7,7 @@
     "dev": "next dev",
     "start": "next start",
     "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' 'tests/**/*.js' 'tests/**/*.jsx'",
-    "standard:fix": "standard --fix -v 'src/**/*.js' 'src/**/*.jsx' 'tests/**/*.js' 'tests/**/*.jsx'",
-    "test": "npm run standard && jest --forceExit --detectOpenHandles",
-    "test:watch": "jest --watch"
+    "test": "npm run standard && jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "config": "^3.3.6",
