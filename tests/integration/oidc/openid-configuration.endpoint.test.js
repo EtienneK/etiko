@@ -2,13 +2,13 @@
  * @jest-environment node
  */
 import fetch from 'cross-fetch'
-import serverPromise from '../../../../utils/test-server'
-import mockConfig from '../../../../utils/mock-config'
+import serverPromise from '../../utils/test-server'
+import mockConfig from '../../utils/mock-config'
 
 let httpServer
 let port
 
-describe('Integrations tests for oidc module', () => {
+describe('oidc module - openid-configuration endpoint tests', () => {
   beforeAll(async () => {
     jest.setTimeout(15000)
     httpServer = await serverPromise
@@ -23,7 +23,7 @@ describe('Integrations tests for oidc module', () => {
     httpServer.close()
   })
 
-  test('/.well-known/openid-configuration should return 200 - https; proxied', async () => {
+  test('should return 200 - https; proxied', async () => {
     jest.mock('config', () => mockConfig())
 
     const res = await fetch(`http://localhost:${port}/api/oidc/.well-known/openid-configuration`, {
@@ -35,17 +35,19 @@ describe('Integrations tests for oidc module', () => {
       }
     })
 
+    expect(res.status).toEqual(200)
     const json = await res.json()
     expect(json.issuer).toEqual('https://iam.example.com/api/oidc')
     expect(json.authorization_endpoint).toEqual('https://iam.example.com/api/oidc/auth')
     expect(json.token_endpoint).toEqual('https://iam.example.com/api/oidc/token')
   })
 
-  test('/.well-known/openid-configuration should return 200 - http; non-proxied', async () => {
+  test('should return 200 - http; non-proxied', async () => {
     jest.mock('config', () => mockConfig({ server: { host: 'localhost:3001', protocol: 'http', proxy: false } }))
 
     const res = await fetch(`http://localhost:${port}/api/oidc/.well-known/openid-configuration`)
 
+    expect(res.status).toEqual(200)
     const json = await res.json()
     expect(json.issuer).toEqual(`http://localhost:${port}/api/oidc`)
     expect(json.authorization_endpoint).toEqual(`http://localhost:${port}/api/oidc/auth`)
