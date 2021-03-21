@@ -1,8 +1,7 @@
 {
   "server": {
-    "protocol": "https",
-    "host": "iam.example.com",
-    "proxy": true
+    "protocol": "http",
+    "host": "localhost:3000"
   },
   "db": {
     "uri": "sqlite::memory:",

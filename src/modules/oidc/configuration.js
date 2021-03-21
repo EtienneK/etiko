@@ -13,8 +13,7 @@ const configuration = {
         'authorization_code'
       ],
       redirect_uris: [
-        'http://sso-client.dev/providers/7/open_id',
-        'http://sso-client.dev/providers/8/open_id'
+        'https://example.com/redirect'
       ]
     }
   ],

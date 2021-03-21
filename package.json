@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build-and-start": "npm run build && npm start",
     "dev": "next dev",
     "start": "next start",
-    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx' 'tests/**/*.js' 'tests/**/*.jsx'",
-    "test": "npm run standard && jest --forceExit --detectOpenHandles"
+    "standard": "standard -v 'src/**/*.js' 'src/**/*.jsx'",
+    "test": "npm run standard && jest",
+    "ci": "rm -rf .next && NODE_ENV=test start-server-and-test build-and-start 3000 test"
   },
   "dependencies": {
     "config": "^3.3.6",
@@ -28,9 +30,10 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@types/jest": "^26.0.20",
-    "express": "^4.17.1",
     "jest": "^26.6.3",
-    "standard": "^16.0.3"
+    "puppeteer": "^8.0.0",
+    "standard": "^16.0.3",
+    "start-server-and-test": "^1.12.1"
   },
   "standard": {
     "envs": [
