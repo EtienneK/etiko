@@ -2,6 +2,12 @@ import oidc from '../../../modules/oidc/provider'
 
 let callback
 
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
+
 export default async (req, res) => {
   if (!callback) {
     callback = (await oidc()).callback()

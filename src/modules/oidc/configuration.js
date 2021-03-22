@@ -7,7 +7,7 @@ const configuration = {
   clients: [
     {
       client_id: 'oidcCLIENT',
-      client_secret: '...',
+      client_secret: 'super_secret_client_secret',
       grant_types: [
         'refresh_token',
         'authorization_code'
