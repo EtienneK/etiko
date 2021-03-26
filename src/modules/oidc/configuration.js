@@ -57,10 +57,7 @@ const configuration = {
     ]
   },
   features: {
-    devInteractions: { enabled: false }, // Defaults to true
-
-    deviceFlow: { enabled: true }, // Defaults to false
-    revocation: { enabled: true } // Defaults to false
+    devInteractions: { enabled: false }
   },
   jwks: {
     keys: [
